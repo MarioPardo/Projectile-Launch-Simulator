@@ -21,20 +21,24 @@ public class Grid
         y = ycoord;
     }
 
-    public int[] getMeterCoordinates(int xcoord, int ycoord)
+    public static int[] getMeterCoordinates(int xcoord, int ycoord)  //input a pixel on the screen, outputs the corresponding coordinates in meters
     {
-        //for x   coord / 10;
+        int xx =   xcoord / 10;
+        int yy =  (1000 - ycoord)/ 10;
 
-        //for y (1000 - coord)/ 10;
-
-    return null;
+        int[] coords = {xx, yy};
+        return coords;
     }
 
-    public int[] getPixelCoordinates(int x, int y)
+    static public int[] getPixelCoordinates(double xcoord, double  ycoord) //input meter coordinates, outputs the corresponding pixel coordinates
     {
-        //reverse the above
+        int xx = (int) xcoord * 10;
+        int yy = (int) Math.round( 1000 - (ycoord * 10));
 
-        return null;
+        int coords[] = {xx, yy};
+
+
+        return coords;
     }
 
 
@@ -80,6 +84,21 @@ public class Grid
 
 
     }
+
+
+    static public void drawPoint(double[] coordinateArray) //coordinates in meters
+    {
+        Graphics g = DisplayPanel.graphics;
+
+        int[] coordinates = getPixelCoordinates(coordinateArray[0],coordinateArray[1]);
+
+        System.out.println(coordinates[1] + "aaaaaaaaaaaaaaa");
+
+        g.fillRect(coordinates[0],coordinates[1], 5, 5);
+
+
+    }
+
 
 
 }

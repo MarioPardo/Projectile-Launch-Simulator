@@ -9,33 +9,35 @@ public class DisplayPanel extends JPanel implements ActionListener
 {
     //project variables such as timer
     Timer timer = new Timer(100, this);
+    static Graphics graphics;
 
 
     //objects
     Grid grid = new Grid(0,0);
 
-    Projectile projectile = new Projectile(0,0,30,15);
+    Projectile projectile = new Projectile(0,0,70,40);
 
 
     public DisplayPanel()
     {
+    projectile.calcComponent();
 
-        projectile.calcComponent();
 
-
-        System.out.println(projectile.xvelocity);
-        System.out.println(projectile.yvelocity);
 
     }
 
 
     public void paintComponent(Graphics g)
     {
+        graphics = g;
+
         super.paintComponent(g);
 
         setBackground(Color.white);
 
         grid.drawGrid(g);
+
+        projectile.calculations();
     }
 
     public void actionPerformed(ActionEvent e)
