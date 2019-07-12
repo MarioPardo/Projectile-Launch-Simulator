@@ -1,5 +1,6 @@
 package com.company;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Projectile
@@ -24,7 +25,8 @@ public class Projectile
     double[] root2_2d = new double[2];
     double[] vertex = new double[2];
 
-    ArrayList travelPoints = new ArrayList();
+
+    ArrayList<double[]> travelPoints = new ArrayList<double[]>();
 
 
     int height; //how many m from ground
@@ -50,8 +52,6 @@ public class Projectile
     public void calculations()
     {
 
-        //equation is -4.9T^2 + yvelocity*t + initialHeight
-
         //1 dimenstions////////////////
 
         //flight time
@@ -64,17 +64,14 @@ public class Projectile
 
 
         flightTime  = root2  + root1;  //not exact, rounding issues, likely
-        System.out.println("Flight time is "+ flightTime);
 
 
         //max distance
         maxDistance = (flightTime * xvelocity);  //negative makes the answer positive
-        System.out.println("Max Distance is " + maxDistance);
 
 
         //max height
         maxHeight = Math.pow(yvelocity,2) / 19.6;
-        System.out.println("Max Height is " +  maxHeight);
 
 
 
@@ -88,17 +85,43 @@ public class Projectile
 
         Grid.drawPoint(vertex);
 
+        calculateTrajectory();
+
+
 
     }
 
-    public void getYDistanceAtTime(double t)
+
+    public double[] getCoordinatesAtTime(double t)
     {
+        double height =-4.9 * Math.pow(t,2);
+        height = height + yvelocity * t;
+
+        double distance = xvelocity * t;
+
+        double[] coordinates = {distance, height};
+
+        return  coordinates;
 
     }
 
-    public void getXDistanceAtTime(double t)
+
+    public void calculateTrajectory()
     {
+        for(double i = 0; i < flightTime; i += 0.1)
+        {
+            travelPoints.add(getCoordinatesAtTime(i));
+        }
 
+        for(double[] coordinate : travelPoints)
+        {
+            Grid.drawPoint(coordinate);
+        }
     }
+
+
+  
+
+
 
 }

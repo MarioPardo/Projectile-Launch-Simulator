@@ -15,11 +15,12 @@ public class DisplayPanel extends JPanel implements ActionListener
     //objects
     Grid grid = new Grid(0,0);
 
-    Projectile projectile = new Projectile(0,0,70,40);
+    Projectile projectile = new Projectile(0,0,70,30);
 
 
     public DisplayPanel()
     {
+    timer.start();
     projectile.calcComponent();
 
 
@@ -38,6 +39,7 @@ public class DisplayPanel extends JPanel implements ActionListener
         grid.drawGrid(g);
 
         projectile.calculations();
+
     }
 
     public void actionPerformed(ActionEvent e)
