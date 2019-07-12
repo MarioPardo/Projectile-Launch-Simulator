@@ -7,7 +7,7 @@ public class Projectile
 {
     int x; //meters
     int y;
-    int radius; //px
+    int radius = 10; //px
 
     int angle;
     double velocity;
@@ -26,7 +26,7 @@ public class Projectile
     double[] vertex = new double[2];
 
 
-    ArrayList<double[]> travelPoints = new ArrayList<double[]>();
+    static ArrayList<double[]> travelPoints = new ArrayList<double[]>();
 
 
     int height; //how many m from ground
@@ -120,7 +120,12 @@ public class Projectile
     }
 
 
-  
+    public void drawBall(Graphics g, int x, int y)
+    {
+        g.setColor(Color.red);
+
+        g.fillOval(x, y, radius, radius);
+    }
 
 
 

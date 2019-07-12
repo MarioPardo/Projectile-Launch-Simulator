@@ -92,8 +92,6 @@ public class Grid
 
         int[] coordinates = getPixelCoordinates(coordinateArray[0],coordinateArray[1]);
 
-        g.fillRect(coordinates[0],coordinates[1], 5, 5);
-
 
     }
 
