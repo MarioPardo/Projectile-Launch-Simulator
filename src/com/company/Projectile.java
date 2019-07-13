@@ -5,9 +5,16 @@ import java.util.ArrayList;
 
 public class Projectile
 {
-    int x; //meters
-    int y;
-    int radius = 10; //px
+    double time = 0;
+
+    //pixels
+    int x = 0;
+    int y = 0;
+    int radius = 20;
+
+    //meters
+    double x_m;
+    double y_m;
 
     int angle;
     double velocity;
@@ -64,14 +71,20 @@ public class Projectile
 
 
         flightTime  = root2  + root1;  //not exact, rounding issues, likely
+        flightTime = Math.floor(flightTime * 10000)/ 10000;
+        System.out.println("Flight Time is : " + flightTime);
 
 
         //max distance
         maxDistance = (flightTime * xvelocity);  //negative makes the answer positive
+        maxDistance = Math.floor(maxDistance * 10000)/ 10000;
+        System.out.println("Max Distance is  : " + maxDistance);
 
 
         //max height
         maxHeight = Math.pow(yvelocity,2) / 19.6;
+        maxHeight = Math.floor(maxHeight * 10000) / 10000;
+        System.out.println("Max Height is  : " + maxHeight);
 
 
 
@@ -83,7 +96,6 @@ public class Projectile
         vertex[0] = maxDistance/2;
         vertex[1] = maxHeight;
 
-        Grid.drawPoint(vertex);
 
         calculateTrajectory();
 
@@ -92,7 +104,7 @@ public class Projectile
     }
 
 
-    public double[] getCoordinatesAtTime(double t)
+    public double[] getCoordinatesAtTime(double t) //meters
     {
         double height =-4.9 * Math.pow(t,2);
         height = height + yvelocity * t;
@@ -108,23 +120,45 @@ public class Projectile
 
     public void calculateTrajectory()
     {
-        for(double i = 0; i < flightTime; i += 0.1)
+        for(double i = 0.0001; i <= flightTime; i += 0.0001)
         {
             travelPoints.add(getCoordinatesAtTime(i));
+
+            System.out.println("i is:" + i);
+
         }
 
-        for(double[] coordinate : travelPoints)
-        {
-            Grid.drawPoint(coordinate);
-        }
+
+    }
+
+    public void setCoordinates(int xcoord, int ycoord)
+    {
+        x = xcoord;
+        y = ycoord;
+
+        double[] mcoords = getCoordinatesAtTime(time);
+
+        x_m = mcoords[0];
+        y_m = mcoords[1];
+
+
+
     }
 
 
-    public void drawBall(Graphics g, int x, int y)
+    public void drawBall(Graphics g)
     {
         g.setColor(Color.red);
 
-        g.fillOval(x, y, radius, radius);
+        g.fillOval(x - radius, y- radius, radius, radius);
+
+        //Over the ball
+
+        g.drawString("X: " + x_m, x, y - radius - 10);
+        g.drawString("Y: " + y_m, x, y - radius - 20);
+
+
+
     }
 
 
