@@ -120,11 +120,11 @@ public class Projectile
 
     public void calculateTrajectory()
     {
-        for(double i = 0.0001; i <= flightTime; i += 0.0001)
+        for(int i = 0; i <= flightTime * 10000; i ++)  //int because using double or float gave weird inaccuracies
         {
-            travelPoints.add(getCoordinatesAtTime(i));
+           float f = i / 10000f;
+           travelPoints.add(getCoordinatesAtTime(f));
 
-            System.out.println("i is:" + i);
 
         }
 
