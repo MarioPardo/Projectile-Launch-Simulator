@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Grid
 {
-    int widthpx = 1000;
-    int heightpx = 1000;
+    static int widthpx = 1000;
+    static int heightpx = 1000;
 
     int heightm = 100;
     int widthm = 100;
@@ -26,7 +26,7 @@ public class Grid
         int xx = xcoord - x;
         xx =   xcoord / 10;
         int yy = ycoord - y;
-        yy =  (1000 - ycoord)/ 10;
+        yy =  (heightpx - ycoord)/ 10;
 
         double[] coords = {xx, yy};
         return coords;
@@ -36,7 +36,7 @@ public class Grid
     {
         int xx = (int) xcoord * 10;
         xx += x;
-        int yy = (int) Math.round( 1000 - (ycoord * 10));
+        int yy = (int) Math.round( heightpx - (ycoord * 10));
         yy += y;
 
         int coords[] = {xx, yy};
@@ -62,7 +62,7 @@ public class Grid
         {
            g.drawLine(xcount , y, xcount, heightpx + y);
 
-           if((xcount - x) % 100 == 0)
+           if((xcount - x) % 100 == 0) //every 10th
            {
                g.drawString("" + ((xcount - x ) / 10)  + "m", xcount + 5, heightpx + y - 10);
            }
@@ -77,7 +77,7 @@ public class Grid
             g.drawLine(x, ycount, widthpx + x, ycount);
             if((ycount - y) % 100 == 0)
             {
-                g.drawString("" + (((1000- ycount)/10 ) + 5) + "m", 10, ycount);
+                g.drawString("" + (((heightpx- ycount)/10 ) + 5) + "m", 10, ycount);
             }
             ycount += pixelsToMeters * 10;
         }

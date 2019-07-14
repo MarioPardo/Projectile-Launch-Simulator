@@ -10,7 +10,7 @@ public class Projectile
     //pixels
     int x = 0;
     int y = 0;
-    int radius = 20;
+    int diameter = 20;
 
     //meters
     double x_m;
@@ -109,7 +109,10 @@ public class Projectile
         double height =-4.9 * Math.pow(t,2);
         height = height + yvelocity * t;
 
+        height = Math.floor(height * 10000)/10000;
+
         double distance = xvelocity * t;
+        distance = Math.floor(distance * 10000)/10000;
 
         double[] coordinates = {distance, height};
 
@@ -148,14 +151,15 @@ public class Projectile
 
     public void drawBall(Graphics g)
     {
-        g.setColor(Color.red);
 
-        g.fillOval(x - radius, y- radius, radius, radius);
+        g.setColor(Color.black); //border
+        g.drawOval(x - diameter/2, y - diameter, diameter, diameter);
+        g.setColor(Color.red); //ball
+        g.fillOval(x - diameter/2, y- diameter, diameter , diameter);
 
         //Over the ball
-
-        g.drawString("X: " + x_m, x, y - radius - 10);
-        g.drawString("Y: " + y_m, x, y - radius - 20);
+        g.drawString("X: " + x_m, x, y - diameter - 10);
+        g.drawString("Y: " + y_m, x, y - diameter - 20);
 
 
 

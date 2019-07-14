@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +17,7 @@ public class DisplayPanel extends JPanel implements ActionListener
     //objects
     Grid grid = new Grid(50,50);
 
-    Projectile projectile = new Projectile(0,0,60,20);
+    Projectile projectile = new Projectile(0,0,50,10);
 
 
     public DisplayPanel()
@@ -23,6 +25,9 @@ public class DisplayPanel extends JPanel implements ActionListener
     timer.start();
 
     projectile.calcComponent();
+
+    grid.widthm = 10;
+    grid.heightm = 10;
 
 
 
@@ -48,6 +53,8 @@ public class DisplayPanel extends JPanel implements ActionListener
 
        frame += 20;
 
+       drawStats(g);
+
     }
 
     public void actionPerformed(ActionEvent e)
@@ -71,11 +78,36 @@ public class DisplayPanel extends JPanel implements ActionListener
             projectile.drawBall(graphics);
         }else
         {
+           projectile.y_m = 0;
+           projectile.x_m = projectile.maxDistance;
+
+
             projectile.drawBall(graphics);
         }
 
 
     }
+
+    public void drawStats(Graphics g)
+    {
+
+        g.setColor(Color.white);
+        g.fillRect(Grid.x + grid.widthpx + 50, 0, 1400, 1200); //white background so that if ball goes over it's not displayed
+
+        g.setColor(Color.black);
+
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 40));  //creates new font
+
+        g.drawString("Calculations", 1100, 80);
+
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 25));  //creates new font
+
+        g.drawString("Flight Time:" + projectile.flightTime + "s", 1100, 180);
+        g.drawString("Max Height:" + projectile.maxHeight + "m", 1100, 260);
+        g.drawString("Distance:" + projectile.maxDistance + "m", 1100, 340);
+
+    }
+
 
 
 

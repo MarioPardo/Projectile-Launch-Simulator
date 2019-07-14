@@ -10,7 +10,7 @@ public class Main {
     {
 
 
-        Frame.setSize(1200,1200);
+        Frame.setSize(1400,1200);
         Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Frame.setVisible(true);
     }
